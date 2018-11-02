@@ -3,8 +3,12 @@
 #include <iostream>
 
 int maxOfArray(int a[], int size) {
-	int maxnumb = 0;
-	for(int i = 0; i<size ;i++){
+	if(size<1){
+		std::cerr<<"ERROR: maxOfArray called with size < 1"<<std::endl;
+	exit(1);
+	}
+	int maxnumb = a[0];
+	for(int i = 1; i<size ;i++){
 		if(a[i]>maxnumb)
 			maxnumb = a[i];
 	}
