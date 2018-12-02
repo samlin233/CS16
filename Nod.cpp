@@ -3,6 +3,7 @@
 using namespace std;
 
 struct Node{
+	Node* prev;
 	int data;
 	Node* next;
 };
@@ -10,8 +11,8 @@ struct Node{
 Node* creatsmallLinkedListWrong(int x, int y){
 
 	Node* head = NULL;//empty linked list
-	Node n1 = {x,NULL};
-	Node n2 = {y,NULL};
+	Node n1 = (x,NULL);
+	Node n2 = (y,NULL);
 	n1.next = &n2;
 	head = &n1;
 	return head;
@@ -44,8 +45,10 @@ LinkedList* creatsmallLinkedList(int x,int y){
 	head = new Node;
 	head -> data = x;
 	head -> next = new Node;
+	head -> prev = NULL;
 	head -> next->data = y;
 	head -> next -> next = NULL;
+	head -> next -> prev = head;
 	newList -> head = head;
 	newList -> tail = head->next;
 	return newList;
@@ -56,6 +59,7 @@ Node* insertNode(Node* head,int x){
 	//Adds a new node with data x at the head of the list
 	//returns the new head of the list
 	Node* p = new Node;
+	p-> prev = NULL;
 	p->data = x;
 	p->next = head;
 	return p;
@@ -65,10 +69,14 @@ void insertNode(LinkedList* list,int x){
 	//Adds a new node with data x at the head of the list
 	//returns the new head of the list
 	Node* p = new Node;
+	p-> prev = NULL;
 	p->data = x;
 	p->next = list->head;
 	if(list->head == NULL){
 		list->tail = p;
+	}
+	else{
+		list->head->prev =p;
 	}
 	list->head = p;
 }
@@ -104,7 +112,32 @@ void freeList(LinkedList* list){
 	//otherwise
 	delete list;
 }
+// Precondition: list is  a pointer to a valid LinkedList
+void deleteNOde (LinkedList* list,int value){
+	if(!list)
+		return;
+	if(list->head == NULL)
+		return;
+	Node* p = list->head;
+	while(p){
+	if(value != p->data){
+		p = ->next;
+		}
+	else{
+		if(p->prev)
+			p->next->prev = p->prev;
+		else
+			list->head = p->next;
+		if(p->next)
+			p->prev->next = p->next;
+		else
+			list->tail = p->prev;
+		delete p;
 
+		}
+	}
+		return;
+}
 void printLinkedList(LinkedList* list){
 	Node* p = list->head;
 	while (p){
@@ -118,7 +151,6 @@ int main(){
 	LinkedList* newlist = creatsmallLinkedList(10,20);
 	cout<<"Initial two node List with values 10,20:"<<endl;
 	printLinkedList(newlist);
-	newlist = insertList(newlist,30);
 	cout<<"Initial Lisr after adding 30 to the head"<<endl;
 	printLinkedList(newlist);
 	freeList(newlist);
