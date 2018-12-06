@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <cctype>
 #include <algorithm>
 #include "strFuncs.h"
 using namespace std;
@@ -14,20 +15,36 @@ using namespace std;
 bool isAnagram(string s1, string s2){
 	int len1 = s1.size();
 	int len2 = s2.size();
-
-	if(len1 == len2){
-		for(int i=0;i<len1;i++){
-			for(int j=0;j<len1;j++){
-
-  return true;
+	string f1;
+	string f2;
+	for(int i=0; i<len1; i++){
+		if(!ispunct(s1[i]))
+				f1 += tolower(s1[i]);
+				}
+	for(int z=0; z<len2 ;z++){
+		if(!ispunct(s2[z]))
+				f2 += tolower(s2[z]);
+				}
+	
+	if(f1.length() != f2.length())
+		return false;
+	sort(f1.begin(),f1.end());
+	sort(f2.begin(),f2.end());
+	if(f1 == f2)
+		return true;
+	else
+		return false;
 }
 
 /* Precondition: s1 is a valid string that may contain upper or lower case alphabets, no spaces or special characters
  * Postcondition: Returns true if s1 is a palindrome, false otherwise
  *You should provide a recursive solution*/
 bool isPalindrome(const string s1){
-
-  return true;
+	int j=s1.length();
+	for(int i=0;i<(j/2);i++)
+		if(s1[i] != s1[j-1-i])
+			return false;
+	return true;
 }
 
 
