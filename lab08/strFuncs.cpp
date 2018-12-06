@@ -41,6 +41,8 @@ bool isAnagram(string s1, string s2){
  *You should provide a recursive solution*/
 bool isPalindrome(const string s1){
 	int j=s1.length();
+	if(j==1)
+		return true;
 	for(int i=0;i<(j/2);i++)
 		if(s1[i] != s1[j-1-i])
 			return false;
