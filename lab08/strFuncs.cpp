@@ -44,7 +44,7 @@ bool isPalindrome(const string s1){
 	if(j==1)
 		return true;
 	for(int i=0;i<(j/2);i++)
-		if(s1[i] != s1[j-1-i])
+		if(tolower(s1[i]) != tolower(s1[j-1-i]))
 			return false;
 	return true;
 }
